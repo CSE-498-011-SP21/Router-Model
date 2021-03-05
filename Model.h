@@ -14,10 +14,7 @@ class Model
 		 * @brief Empty Model constructor
 		 * @todo Write this functions
 		 */
-		Model()
-		{
-			
-		}
+		Model();
 
 
 		/**
@@ -25,10 +22,7 @@ class Model
 		 * @param key The key to be classified
 		 * @return True if the key is hot and false otherwise
 		 */
-		bool classify(T key)
-		{
-			return false;
-		}
+		bool classify(T key);
 }
 
 #endif
