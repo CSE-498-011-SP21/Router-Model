@@ -3,7 +3,7 @@ import random
 from sklearn.neural_network import MLPClassifier
 
 MAXINT = 2**32 - 1
-LENGTH = 1000
+LENGTH = 100
 
 # generate a Zipfian distribution with a given length
 x = np.random.zipf(1.5, LENGTH)
@@ -37,10 +37,8 @@ print(data)
 print(target)
 
 
-# X = [[0., 0.], [1., 1.]]
-# y = [0, 1]
 clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
-                    hidden_layer_sizes=(20,), random_state=1)
+                    hidden_layer_sizes=(20,20), random_state=0)
 
 clf.fit(data, target)
 print(clf.predict(data))
