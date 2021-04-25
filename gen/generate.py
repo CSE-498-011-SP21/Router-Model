@@ -50,7 +50,7 @@ for i in x:
 		value = values[i]
 	
 	# append the request
-	out.append([i, request_type, value])
+	out.append([i, 0, request_type, value])
 
 # print out stats
 print("Generated test workload with:")
