@@ -91,11 +91,10 @@ auto hashNT(const T& key) -> std::array<std::size_t, N>
 
 int main()
 {
-	size_t size = 250;
-	int* sketch_1 = new int[size];
-	int* sketch_2 = new int[size];
-	int* sketch_3 = new int[size];
-	int* sketch_4 = new int[size];
+	size_t size = 500;
+	int* sketch_1 = new int[659];
+	int* sketch_2 = new int[661];
+	int* sketch_3 = new int[673];
 
 	// load key stream and frequency data
 	vector<unsigned int> stream = read_stream("stream.csv");
@@ -105,13 +104,9 @@ int main()
 	auto start = chrono::system_clock::now();
 	for (unsigned int key : stream)
 	{
-		// auto [h1, h2] = hashNT<2>(key);
-		auto [h1, h2, h3, h4] = hashNT<4>(key);
-
-		sketch_1[h1 % size]++;
-		sketch_2[h2 % size]++;
-		sketch_3[h3 % size]++;
-		sketch_4[h4 % size]++;
+		sketch_1[key % 659]++;
+		sketch_2[key % 661]++;
+		sketch_3[key % 673]++;
 	}
 	auto end = chrono::system_clock::now();
 	chrono::duration<double> elapsed_seconds = end - start;
@@ -125,11 +120,9 @@ int main()
 	start = chrono::system_clock::now();
 	for (auto freq : freqs)
 	{
-		// auto [h1, h2] = hashNT<2>(freq.first);
-		auto [h1, h2, h3, h4] = hashNT<4>(freq.first);
-
-		val = min({sketch_1[h1 % size], sketch_2[h2 % size],
-					sketch_3[h3 % size], sketch_4[h4 % size]});
+		auto key = freq.first;
+		val = min({sketch_1[key % 659], sketch_2[key % 661],
+					sketch_3[key % 673]});
 
 		total_error += abs((float)val - freq.second) / freq.second;
 		count++;
@@ -146,11 +139,8 @@ int main()
 	start = chrono::system_clock::now();
 	for (auto key : stream)
 	{
-		// auto [h1, h2] = hashNT<2>(freq.first);
-		auto [h1, h2, h3, h4] = hashNT<4>(key);
-
-		val = min({sketch_1[h1 % size], sketch_2[h2 % size],
-					sketch_3[h3 % size], sketch_4[h4 % size]});
+		val = min({sketch_1[key % 659], sketch_2[key % 661],
+					sketch_3[key % 673]});
 
 		total_error += abs((float)val - 5) / 5;
 		count++;
