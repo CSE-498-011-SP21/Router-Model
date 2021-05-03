@@ -6,7 +6,7 @@ class RL_label:
       self.usage = {}
       self.fre = []
     
-    def bound(self, k):
+    def bound(self, r):
       for key in y:
 	      if key in self.usage:
 		      self.usage[key] += 1
@@ -17,6 +17,7 @@ class RL_label:
       data = np.empty((len(self.usage), 1))
       target = np.empty((len(self.usage,)), dtype=np.int)
       self.fre.sort()
+      k = int(r*len(data))
       bound = self.fre[len(self.fre)-k]
 
       for i, key in enumerate(self.usage):
@@ -25,11 +26,35 @@ class RL_label:
 	        target[i] = 1
 	        i += 1
         else :
-          target[i] = -1
+          target[i] = 0
           i += 1
       return data, target
 
 
+import numpy as np
+import random
+from sklearn.neural_network import MLPClassifier
+
+MAXINT = 2**32 - 1
+LENGTH = 100
+rate = 0.2
+# generate a Zipfian distribution with a given length
+x = np.random.zipf(1.5, LENGTH)
+
+
+# assign random keys to the elements in the distribution
+mapping = {}
+y = []
+for i in range(len(x)):
+	if x[i] not in mapping:
+		mapping[x[i]] = random.randint(0, MAXINT)
+	y.append(mapping[x[i]])
+
+rlmodel = RL_label(y)
+
+data, target = rlmodel.bound(rate)
+print(data)
+print(target)
 
 from sklearn import svm
 #Increase the penalty of svc to improve its accuracy, but the generalization ability becomes weaker, and svc is suitable for training below 10000 data, and linearsvc is suitable for training above 10000
