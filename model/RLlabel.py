@@ -1,8 +1,9 @@
 # For this part, set a reward that when send the key to cpu, it will be reward 1,the gpu will be reward to 0 or -1. So we try to calculate all key's frequency and choosing the biggest k keys to sent to cpu.
 # we will send the data set y from client to the model to init it. Then we send the k to label the dataset y, and return the data after nomorlizing to [0,1] and target label.
 class RL_label:
-    def __init__(self, y):
+    def __init__(self, y, r):
       self.y = y
+      self.r = r
       self.usage = {}
       self.fre = []
     
@@ -50,9 +51,9 @@ for i in range(len(x)):
 		mapping[x[i]] = random.randint(0, MAXINT)
 	y.append(mapping[x[i]])
 
-rlmodel = RL_label(y)
+rlmodel = RL_label(y,rate)
 
-data, target = rlmodel.bound(rate)
+data, target = rlmodel.bound()
 print(data)
 print(target)
 
