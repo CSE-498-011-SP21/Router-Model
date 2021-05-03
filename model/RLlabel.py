@@ -67,3 +67,19 @@ print(clf.predict(data))
 lin_clf = svm.LinearSVC(C=10000000.0)
 lin_clf.fit(data, target)
 print(lin_clf.predict(data))
+
+#sava model
+import pickle
+
+pkl_filename = "pickle_model.pkl"
+with open(pkl_filename, 'wb') as file:
+  pickle.dump(clf, file)
+
+
+#reload model
+import pickle
+
+pkl_filename = "pickle_model.pkl"
+with open(pkl_filename, 'rb') as file:
+  pickle_model = pickle.load(file)
+  print(pickle_model.predict(data))
