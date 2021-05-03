@@ -85,5 +85,5 @@ with open(pkl_filename, 'rb') as file:
   print(pickle_model.predict(data))
 
 import m2cgen as m2c
-code = m2c.export_to_c(clf)#导出为c代码
+code = m2c.export_to_c(clf)#Change the code to C++
 print(code)
