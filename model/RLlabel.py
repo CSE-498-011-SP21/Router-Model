@@ -83,3 +83,7 @@ pkl_filename = "pickle_model.pkl"
 with open(pkl_filename, 'rb') as file:
   pickle_model = pickle.load(file)
   print(pickle_model.predict(data))
+
+import m2cgen as m2c
+code = m2c.export_to_c(clf)#导出为c代码
+print(code)
